@@ -8,10 +8,9 @@ import {
   faVuejs,
 } from "@fortawesome/free-brands-svg-icons";
 import ProgressBar from "./ProgressBar";
-import { selectAllProjectCategories } from "../../features/projectCategories/projectCategoriesSlice";
 
 const ProgressBarChart = () => {
-  const [progressItems, setProgressItems] = useState(selectAllProjectCategories);
+  const [progressItems, setProgressItems] = useState();
 
   return (
   <div>

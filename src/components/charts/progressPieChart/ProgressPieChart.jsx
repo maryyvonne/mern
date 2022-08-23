@@ -9,15 +9,11 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import {
-  getCompletedPercent,
-  getIncompletePercent,
-  selectAllBuildItems,
-} from "../../features/buildItems/buildItemsSlice";
+
 
 const ProgressPieChart = () => {
   const COLORS = ["#00FF00", "#ff0000"];
-  const buildItems = useSelector(selectAllBuildItems);
+  const buildItems = useSelector();
 
   const complete = (buildItems) => {
     let completed = buildItems.filter(

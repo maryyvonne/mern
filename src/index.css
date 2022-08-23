@@ -9,3 +9,7 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a, a:link, a:visited, a:hover, a:active, a:focus{
+  text-decoration: none !important;
+}
