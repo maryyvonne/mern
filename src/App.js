@@ -10,8 +10,7 @@ import {
 } from "./components";
 import { Home, Dashboard, Contacts, Projects, Schedule, Tasks } from "./pages";
 import "./App.css";
-import { useStateContext } from './contexts/ContextProvider';
-import { SidebarLinks } from './components/sidebar/SidebarLinks';
+import { useStateContext } from "./contexts/ContextProvider";
 
 const App = () => {
   const { activeMenu } = useStateContext();
@@ -33,7 +32,7 @@ const App = () => {
           </div>
           {activeMenu ? (
             <div className='w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white'>
-              <Sidebar  />
+              <Sidebar />
             </div>
           ) : (
             <div className='w-0 dark:bg-secondary-dark-bg '>
@@ -53,7 +52,7 @@ const App = () => {
             <Routes>
               {/* Dashboard */}
               <Route path='/' element={<Home />} />
-              <Route path='/dashboard' element={<Home />} />
+              <Route path='/home' element={<Home />} />
 
               {/* Pages */}
               <Route path='/projects' element={<Projects />} />
