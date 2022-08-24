@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { GoSettings } from "react-icons/go";
 import {
@@ -7,16 +7,34 @@ import {
   Sidebar,
   Notifications,
   TooltipComp,
+  ThemeSettings,
 } from "./components";
 import { Home, Dashboard, Contacts, Projects, Schedule, Tasks } from "./pages";
 import "./App.css";
 import { useStateContext } from "./contexts/ContextProvider";
 
 const App = () => {
-  const { activeMenu } = useStateContext();
+  const {
+    setCurrentColor,
+    setCurrentMode,
+    currentMode,
+    activeMenu,
+    currentColor,
+    themeSettings,
+    setThemeSettings,
+  } = useStateContext();
+
+  useEffect(() => {
+    const currentThemeColor = localStorage.getItem("colorMode");
+    const currentThemeMode = localStorage.getItem("themeMode");
+    if (currentThemeColor && currentThemeMode) {
+      setCurrentColor(currentThemeColor);
+      setCurrentMode(currentThemeMode);
+    }
+  }, []);
 
   return (
-    <div>
+    <div className={currentMode === "Dark" ? "dark" : ""}>
       <Router>
         <div className='flex relative dark:bg-main-dark-bg'>
           <div className='fixed right-4 bottom-4' style={{ zIndex: "1000" }}>
@@ -31,39 +49,43 @@ const App = () => {
             </TooltipComp>
           </div>
           {activeMenu ? (
-            <div className='w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white'>
+            <div className='w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white '>
               <Sidebar />
             </div>
           ) : (
-            <div className='w-0 dark:bg-secondary-dark-bg '>
+            <div className='w-0 dark:bg-secondary-dark-bg'>
               <Sidebar />
             </div>
           )}
           <div
-            className={`dark:bg-main-bg bg-main-bg min-h-screen w-full
-            ${activeMenu ? " md:ml-72 " : " flex-2"}`}
+            className={
+              activeMenu
+                ? "dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full  "
+                : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
+            }
           >
-            <div className='fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full'>
+            <div className='fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full '>
               <Navbar />
             </div>
-          </div>
+            <div>
+              {themeSettings && <ThemeSettings />}
 
-          <div>
-            <Routes>
-              {/* Dashboard */}
-              <Route path='/' element={<Home />} />
-              <Route path='/home' element={<Home />} />
+              <Routes>
+                {/* Dashboard */}
+                <Route path='/' element={<Home />} />
+                <Route path='/home' element={<Home />} />
 
-              {/* Pages */}
-              <Route path='/projects' element={<Projects />} />
-              <Route path='/contacts' element={<Contacts />} />
+                {/* Pages */}
+                <Route path='/projects' element={<Projects />} />
+                <Route path='/contacts' element={<Contacts />} />
 
-              {/* Apps */}
-              <Route path='/schedule' element={<Schedule />} />
-              <Route path='/tasks' element={<Tasks />} />
+                {/* Apps */}
+                <Route path='/schedule' element={<Schedule />} />
+                <Route path='/tasks' element={<Tasks />} />
 
-              {/* Charts */}
-            </Routes>
+                {/* Charts */}
+              </Routes>
+            </div>
           </div>
         </div>
       </Router>

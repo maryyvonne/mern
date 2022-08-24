@@ -31,8 +31,8 @@ const Sidebar = () => {
             >
               <FaYinYang /> <span>Yin Yang CHB</span>
             </Link>
-            
-            <TooltipComp content='Menu' position='top'>
+
+            <TooltipComp content='Menu' position='BottomCenter'>
               <button
                 type='button'
                 onClick={() => setActiveMenu(!activeMenu)}
